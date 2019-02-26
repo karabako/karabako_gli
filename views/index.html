@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Firebasetest</title>
+
+  <!-- update the version number as needed -->
+  <!-- <script defer src="/__/firebase/5.8.4/firebase-app.js"></script> -->
+  <!-- include only the Firebase features as you need -->
+  <!-- <script defer src="/__/firebase/5.8.4/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.8.4/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.8.4/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.8.4/firebase-storage.js"></script> -->
+  <!-- initialize the SDK after all desired features are loaded -->
+  <!-- <script defer src="/__/firebase/init.js"></script> -->
+</head>
+
+<body>
+  <div>
+    <!-- <form id="tstform" action="https://karabako-b54d3.firebaseapp.com/api/getSource" method="POST" accept-charset="utf-8">
+      <input type="text" id="ncode" value="n0611em" />
+      <input type="number" id="page" value="2" />
+      <input type="submit" value="post" />
+    </form> -->
+    <input id="ncode" size="8" value="n0611em" />
+    <input type="number" id="page" style="width:40px" value="2" />
+    <button onclick="post();">post</button>
+    <br />
+    <p id="res"></p>
+  </div>
+  <script type="text/javascript">
+    var xhr = new XMLHttpRequest();
+
+    var post = function() {
+      var data = {};
+      for (var i = 0; i < document.getElementsByTagName("input").length; i++) {
+        if (document.getElementsByTagName("input")[i].getAttribute("id") !== null) {
+          data[document.getElementsByTagName("input")[i].getAttribute("id")] =
+            document.getElementsByTagName("input")[i].value;
+        }
+      }
+
+      xhr.open('POST', '/api/getSource');
+      xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+      xhr.send(JSON.stringify(data));
+    }
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.responseText);
+        document.getElementById("res").innerHTML = xhr.responseText +
+          "<br/>" + document.getElementById("res").innerHTML
+      }
+    }
+  </script>
+</body>
+
+</html>
