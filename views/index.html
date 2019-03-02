@@ -4,41 +4,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>glitchtest</title>
-
-  <!-- update the version number as needed -->
-  <!-- <script defer src="/__/firebase/5.8.4/firebase-app.js"></script> -->
-  <!-- include only the Firebase features as you need -->
-  <!-- <script defer src="/__/firebase/5.8.4/firebase-auth.js"></script>
-    <script defer src="/__/firebase/5.8.4/firebase-database.js"></script>
-    <script defer src="/__/firebase/5.8.4/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/5.8.4/firebase-storage.js"></script> -->
-  <!-- initialize the SDK after all desired features are loaded -->
-  <!-- <script defer src="/__/firebase/init.js"></script> -->
+  <title>3ds novel viewer</title>
 </head>
 
 <body>
-  <div>
-    <!-- <form id="tstform" action="https://karabako-b54d3.firebaseapp.com/api/getSource" method="POST" accept-charset="utf-8">
-      <input type="text" id="ncode" value="n0611em" />
-      <input type="number" id="page" value="2" />
-      <input type="submit" value="post" />
-    </form> -->
-    <input id="nCode" size="8" value="n0611em" />
-    <input type="number" id="page" style="width:40px" value="2" />
-    <button onclick="post();">post</button>
-    <br />
-    <p id="res"></p>
+  <select class="postValue" id="host" size="1">
+    <option value="https://ncode.syosetu.com">な小</option>
+    <option value="https://mypage.syosetu.com">な作</option>
+  </select>
+  <input type="text" class="postValue" id="sCode" size="8" value="n0611em"/>
+  <input type="number" class="postValue" id="page" size="3" value="1"/>
+  <button onclick="go();">go</button>
+  <br/>
+  <div id="main" style="width: 100%">
+    <button id="toc" onclick="toc();">toc</button>
+    <button id="auth" onclick="auth();">auth</button>
+    <button id="prev" onclick="prev();">prev</button>
+    <button id="next" onclick="next();">next</button>
+    <br/>
+    <p id="source"></p>
+    <br/>
+    <button onclick="window.scrollTo(0,0);">上へ</button>
+    <button style="float:right;" onclick="next();">next</button>
   </div>
   <script type="text/javascript">
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
 
-    var post = function() {
-      var data = {};
-      for (var i = 0; i < document.getElementsByTagName("input").length; i++) {
-        if (document.getElementsByTagName("input")[i].getAttribute("id") !== null) {
-          data[document.getElementsByTagName("input")[i].getAttribute("id")] =
-            document.getElementsByTagName("input")[i].value;
+    const post = function() {
+      const data = {};
+      for (var i = 0; i < document.getElementsByClassName("postValue").length; i++) {
+        if (document.getElementsByClassName("postValue")[i].getAttribute("id") !== null) {
+          data[document.getElementsByClassName("postValue")[i].getAttribute("id")] =
+            document.getElementsByClassName("postValue")[i].value;
         }
       }
 
@@ -49,11 +46,12 @@
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
         console.log(xhr.responseText);
-        document.getElementById("res").innerHTML = xhr.responseText +
-          "<br/>" + document.getElementById("res").innerHTML
+        document.getElementById("source").innerHTML = xhr.responseText +
+          "<br/>" + document.getElementById("source").innerHTML
       }
     }
   </script>
+  <script src="/button.js" charset="utf-8"></script>
 </body>
 
 </html>

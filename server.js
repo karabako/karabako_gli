@@ -13,8 +13,8 @@ const express = require('express'),
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
 // http://expressjs.com/en/starter/static-files.html
-// app.use(express.static('public'));
 app.use(bodyPaser.json());
+app.use(express.static('public'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
@@ -22,7 +22,7 @@ app.get('/', function(request, response) {
 app.route("/api/getSource")
   .post((req, res) => {
     urlReq({
-        url: `https://ncode.syosetu.com/${req.body.nCode}/${req.body.page==0 ? "" : req.body.page || ""}`,
+        url: `https://ncode.syosetu.com/${req.body.sCode}/${req.body.page==0 ? "" : req.body.page || ""}`,
         method: `GET`
       })
       .then(body => {
