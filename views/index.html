@@ -5,52 +5,43 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>3ds novel viewer</title>
+  <script type="text/javascript">
+    const tmp = {
+      host: "0",
+      sCode: "",
+      page: 0,
+      auther: "",
+      html: ["", "", ""], //循環予定
+      pcnIndex: 0, //(+0,+1,+2)%3->prev,curr,next
+
+      // init: function() {
+      //
+      // };
+    }
+  </script>
 </head>
 
 <body>
   <select class="postValue" id="host" size="1">
-    <option value="https://ncode.syosetu.com">な小</option>
-    <option value="https://mypage.syosetu.com">な作</option>
+    <option value=0>な小</option>
+    <option value=1>な作</option>
   </select>
-  <input type="text" class="postValue" id="sCode" size="8" value="n0611em"/>
-  <input type="number" class="postValue" id="page" size="3" value="1"/>
+  <input type="text" class="postValue" id="sCode" size="8" value="n0611em" />
+  <input type="number" class="postValue" id="page" size="3" value="1" />
   <button onclick="go();">go</button>
-  <br/>
+  <br />
   <div id="main" style="width: 100%">
     <button id="toc" onclick="toc();">toc</button>
     <button id="auth" onclick="auth();">auth</button>
     <button id="prev" onclick="prev();">prev</button>
     <button id="next" onclick="next();">next</button>
-    <br/>
+    <br />
     <p id="source"></p>
-    <br/>
+    <br />
     <button onclick="window.scrollTo(0,0);">上へ</button>
     <button style="float:right;" onclick="next();">next</button>
   </div>
-  <script type="text/javascript">
-    const xhr = new XMLHttpRequest();
-
-    const post = function() {
-      const data = {};
-      for (var i = 0; i < document.getElementsByClassName("postValue").length; i++) {
-        if (document.getElementsByClassName("postValue")[i].getAttribute("id") !== null) {
-          data[document.getElementsByClassName("postValue")[i].getAttribute("id")] =
-            document.getElementsByClassName("postValue")[i].value;
-        }
-      }
-
-      xhr.open('POST', '/api/getSource');
-      xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
-      xhr.send(JSON.stringify(data));
-    }
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        console.log(xhr.responseText);
-        document.getElementById("source").innerHTML = xhr.responseText +
-          "<br/>" + document.getElementById("source").innerHTML
-      }
-    }
-  </script>
+  <script src="/xhl.js" charset="utf-8"></script>
   <script src="/button.js" charset="utf-8"></script>
 </body>
 
