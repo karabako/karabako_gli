@@ -11,6 +11,7 @@ const post = function(moves) {
     }
   }
 
+  // xhr.open('POST', '/api/search');
   xhr.open('POST', '/api/getSource');
   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
   xhr.send(JSON.stringify(data));
@@ -18,8 +19,7 @@ console.log(data);
 xhr.onreadystatechange = function() {
   if (xhr.readyState === 4 && xhr.status === 200) {
     // console.log(xhr.responseText);
-    document.getElementById("source").innerHTML = xhr.responseText +
-      "<br/>" + document.getElementById("source").innerHTML
+    document.getElementById("source").innerHTML = xhr.responseText;
   }
 }
 }

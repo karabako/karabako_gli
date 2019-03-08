@@ -6,9 +6,19 @@ const express = require('express'),
   bodyPaser = require("body-parser"),
   urlReq = require("request-promise"),
   jsdom = require("jsdom"),
-  {JSDOM} = jsdom,
+  {
+    JSDOM
+  } = jsdom,
   app = express();
 
+const tmp = {
+  host: "0",
+  sCode: "",
+  page: 0,
+  auther: "",
+  html: ["", "", ""], //循環予定
+  pcnIndex: 1, //(+0,+1,+2)%3->prev,curr,next
+}
 // we've started you off with Express,
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -22,13 +32,18 @@ app.get('/', function(request, response) {
 app.route("/api/getSource")
   .post((req, res) => {
     urlReq({
-        url: `${process.env.HOSTS.split(" ")[req.body.host]}/${req.body.sCode}/${req.body.page==0 ? "" : req.body.page || ""}`,
+        url: "http://www.ryokurian.jp/atelier/geso/geso.php/",
+        qs: {
+          url: `${process.env.HOSTS.split(" ")[req.body.host]}/${req.body.sCode}/${req.body.page == 0 ? "" : req.body.page || ""}`
+        },
         method: `GET`
       })
       .then(body => {
         // console.log(body);
         //var{a}は分割代入右辺.aを取り出す？
-        const {document} = (new JSDOM(body)).window;
+        const {
+          document
+        } = (new JSDOM(body)).window;
         let result = null;
         console.log(document);
         switch (req.body.host) {
@@ -91,8 +106,11 @@ app.route("/api/search")
   .post((req, res) => {
     // console.log(req.body);
     urlReq({
-        url: "https://api.syosetu.com/novelapi/api/?ncode=n0611em",
-        method: "GET"
+        url: "https://syosetu.com/user/top/",
+        method: "POST",
+        // form: {
+        // }
+
       })
       .then(body => {
         // console.log(body);
