@@ -11,7 +11,6 @@ const post = function(moves) {
     }
   }
 
-  // xhr.open('POST', '/api/search');
   xhr.open('POST', '/api/getSource');
   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
   xhr.send(JSON.stringify(data));

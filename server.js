@@ -6,9 +6,7 @@ const express = require('express'),
   bodyPaser = require("body-parser"),
   urlReq = require("request-promise"),
   jsdom = require("jsdom"),
-  {
-    JSDOM
-  } = jsdom,
+  {JSDOM} = jsdom,
   app = express();
 
 const tmp = {
@@ -41,9 +39,7 @@ app.route("/api/getSource")
       .then(body => {
         // console.log(body);
         //var{a}は分割代入右辺.aを取り出す？
-        const {
-          document
-        } = (new JSDOM(body)).window;
+        const {document} = (new JSDOM(body)).window;
         let result = null;
         console.log(document);
         switch (req.body.host) {
